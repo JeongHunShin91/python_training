@@ -133,7 +133,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score
 import seaborn as sns
 import math
-
+import random
 
 # boston_url = 'https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-ST0151EN-SkillsNetwork/labs/boston_housing.csv'
 # dataset=pd.read_csv(boston_url)
@@ -142,12 +142,11 @@ import math
 # y = y.astype('int')
 # x = dataset.drop(["MEDV"],axis=1)
 boston = load_boston()
-boston
 x = boston.data
 y = boston.target
 
 colnames = boston.feature_names # 13개 칼럼 이름 가져올때
-colnames
+colnames.head()
 x.shape
 y.shape
 print(x)
@@ -170,7 +169,7 @@ print('R2=',r2_score(y_test, pred))
 imp = rf_clf.feature_importances_
 imp
 len(imp)
-
+random.seed(1234)
 # 시각화
 colnames
 len(imp)
@@ -201,7 +200,7 @@ from sklearn import datasets
 housing = datasets.load_boston()
 X_data = housing.data
 y_data = housing.target
-
+housing.head()
 # 피처 스케일링
 from sklearn.preprocessing import MinMaxScaler
 
@@ -282,75 +281,15 @@ import pandas as pd
 from sklearn.datasets import load_iris
 import seaborn as sns
 
-# X_Data = Iris_Data.iloc[:, :-1]
-# Y_Data = Iris_Data.iloc[:, [-1]]
-# x_data = np.ndarray(X_Data)
-# x_data = np.ndarray(Y_Data)
-#
-# iris.rename(columns={iris.columns[0] : 'SL',
-#                      iris.columns[1] : 'SW',
-#                      iris.columns[2] : 'PL',
-#                      iris.columns[3] : 'PW',
-#                      iris.columns[4] : 'Y'}, inplace = True)
-
-# iris = sns.load_dataset('iris')
-# iris = pd.DataFrame(iris)
-# iris = load_iris()
-# iris_target = pd.DataFrame(iris.target, columns=['species'])
-# iris_df = pd.DataFrame(iris.data, columns = iris.feature_names)
-# iris_df_fn = pd.concat([iris_df, iris_target],axis=1)
-# iris_df_fn['species'] = iris_df_fn['species'].map({0:"setosa",1:"versicolor",2:"virginica"})
-# iris_mean = iris_df_fn.groupby('species').mean()
-# iris_mean_fn = iris_mean
-# list =list(iris_mean_fn.index)
-# iris_mean_fn['species'] = list
-# df=iris_mean_fn
-# iris_df_fn # 총데이터
-# iris_df # 변수만
-# iris_mean # 인덱스 평균데이터
-# iris_mean_fn # 인덱스 컬렁 추가 데이터
 iris = sns.load_dataset('iris') # 데이터
 iris_mean = iris.groupby('species').mean() # 편균데이터
-# iris_mean.plot(kind='bar')
-# plt.title("iris")
-# plt.xlabel("species")
-# plt.ylabel("cm")
 
-# plt.title("iris")
-# plt.bar(iris_mean_fn["species"], iris_mean_fn['sepal length (cm)'])
-# plt.bar(iris_mean_fn["species"], iris_mean_fn['sepal width (cm)'])
-# plt.bar(iris_mean_fn["species"], iris_mean_fn['petal length (cm)'])
-# plt.bar(iris_mean_fn["species"], iris_mean_fn['petal width (cm)'])
-# x = np.arange(len(df['species']))
-# x
-# width = 0.35
-# fig, ax = plt.subplots()
-# rects1 = ax.bar(x, df['sepal length (cm)'], width, label='sepal width (cm)')
-# rects2 = ax.bar(r2, df['sepal width (cm)'], width, label='sepal width (cm)')
-# rects3 = ax.bar(r3, df['petal length (cm)'], width, label='sepal width (cm)')
-# rects4 = ax.bar(r4, df['petal width (cm)'], width, label='sepal width (cm)')
-# ax.bar_label(rects1, padding=3)
-# ax.hist(df['sepal length (cm)'], 10, histtype='bar')
-# ax.set_title('different sample sizes')
-#
-# labels = ['G1', 'G2', 'G3', 'G4', 'G5']
-
-
-# r2 = [x + barWidth for x in x]
-# r3 = [x + barWidth for x in r2]
-# r4 = [x + barWidth for x in r3]
-# barWidth = 0.5
 # 막대차트(세로)
 iris_mean.plot(kind='barh')
 iris_mean.plot(kind='bar')
 plt.title("iris")
 plt.ylabel("species")
 plt.xlabel("cm")
-# plt.title("iris")
-# plt.barh(iris_mean_fn["species"], iris_mean_fn['sepal length (cm)'])
-# plt.barh(iris_mean_fn["species"], iris_mean_fn['sepal width (cm)'])
-# plt.barh(iris_mean_fn["species"], iris_mean_fn['petal length (cm)'])
-# plt.barh(iris_mean_fn["species"], iris_mean_fn['petal width (cm)'])
 
 # 누적막대 차트
 iris_mean.plot(kind='bar',stacked = True)
@@ -399,13 +338,6 @@ plt.hist(iris['sepal_width'],bin=10)
 plt.hist(iris['petal_length'],bin=10)
 plt.hist(iris['petal_width'],bin=10)
 
-# 산점도
-# plt.scatter(iris["species"], iris['sepal_length'])
-# plt.scatter(iris["species"], iris['sepal_width'])
-# plt.scatter(iris["species"], iris['petal_length'])
-# plt.scatter(iris["species"], iris['petal_width'])
-# plt.legend(loc = (0.7, 0.7), labels = ['sepal_length', 'sepal_width', 'petal_length','petal_width'],title = 'species')
-
 groups = iris.groupby('species')
 fig, ax = plt.subplots()
 for name, group in groups:
@@ -433,36 +365,6 @@ plt.title('iris', fontsize=20)
 plt.xlabel('sepal_length', fontsize=14)
 plt.ylabel('sepal_width', fontsize=14)
 plt.show()
-
-# np.random.seed(0)
-# n = 50
-# x = np.random.rand(n)
-# y = np.random.rand(n)
-# x
-# a=np.array(iris['sepal_width'])
-# area = (30 * np.random.rand(n))**2
-# area
-# ax.table()
-# colors = np.random.rand(n)
-#
-# # ----------
-# iris_array = iris['sepal_length'],iris['sepal_width'].size()
-# type(iris)
-#
-# iris_concat = pd.concat([iris['sepal_length'],iris['sepal_width']],axis = 1)
-# iris_concat = np.bincount(iris_concat)
-# iris_concat.size()
-# uni, count=np.unique(iris_concat, return_counts=True)
-# len(uni)
-# count
-# y3=(count)**2
-# from collections import Counter
-# cnt = Counter()
-# for iris_concat in iris_concat:
-#     cnt[iris_concat] += 1
-# cnt = np.array(list(cnt.values()))
-# len(cnt)
-# cnt
 
 # 중첩자료 시각화
 iris_sepla = iris.groupby(['sepal_length','sepal_width'])
