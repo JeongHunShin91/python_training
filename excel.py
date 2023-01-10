@@ -103,7 +103,7 @@ print(get_column_letter(personnel_info_ws.max_column))
 # 5 번째 행에 하나의 행 추가
 # insert_cols(idx, amount=1)
 # idx 에 해당하는 열 바로 앞에 col 추가
-personnel_info_ws.insert_cols(5, 1)
+personnel_info_ws.insert_cols(5, 2)
 # personnel_info_ws.insert_cols(5,2) # 열 2 개
 # 행 추가 후 행 최대 크기 조사
 print(personnel_info_ws.max_column)
@@ -157,7 +157,7 @@ ws3_contents = {
 # Dictionary to Dataframe conversion
 dataframe1 = pd.DataFrame(ws1_contents)
 dataframe2 = pd.DataFrame(ws2_contents)
-
+dataframe1
 dataframe3 = pd.DataFrame(ws3_contents)
 with pd.ExcelWriter('employee1.xlsx', engine='xlsxwriter') as writer:
     dataframe1.to_excel(writer, sheet_name='worksheet1')
@@ -175,10 +175,10 @@ def get_rules(filename):
     targets = []
     for tmp_line in file:
         line = tmp_line.strip()
-    wb_name = line.split(':')[0]
-    ws_names = line.split(':')[1].split(',')
-    target = {wb_name: ws_names}
-    targets.append(target)
+        wb_name = line.split(':')[0]
+        ws_names = line.split(':')[1].split(',')
+        target = {wb_name: ws_names}
+        targets.append(target)
     return key_column.strip(), key.strip(), targets
 
 
@@ -385,7 +385,6 @@ def get_row_by(key_column, key, target):
                 rows_raw = get_raw_row(row)
                 rows.append(rows_raw)
         return rows
-
 
 def main():
     key_column, key, targets = get_rules('규칙파일.txt')
